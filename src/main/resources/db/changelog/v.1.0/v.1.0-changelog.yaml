@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - property:
+      name: author
+      value: "RomanCamelCase"
+
+  - changeSet:
+      id: 1
+      author: ${author}
+      changes:
+        - sqlFile:
+            path: "db/changelog/v.1.0/2023-12-02-users_table.sql"
+  - changeSet:
+      id: 2
+      author: ${author}
+      changes:
+        - sqlFile:
+            path: "db/changelog/v.1.0/2023-12-02-roles_table.sql"
