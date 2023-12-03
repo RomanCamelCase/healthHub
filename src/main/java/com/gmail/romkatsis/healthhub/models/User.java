@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -64,12 +64,12 @@ public class User {
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private List<Role> roles;
+    private Set<Role> roles;
 
     public User() {
     }
 
-    public User(String email, String password, boolean isBanned, Gender gender, String firstName, String lastName, Date birthDate, List<Role> roles) {
+    public User(String email, String password, boolean isBanned, Gender gender, String firstName, String lastName, Date birthDate) {
         this.email = email;
         this.password = password;
         this.isBanned = isBanned;
@@ -77,7 +77,6 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
-        this.roles = roles;
     }
 
     public void setId(int id) {
@@ -116,7 +115,7 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 }
