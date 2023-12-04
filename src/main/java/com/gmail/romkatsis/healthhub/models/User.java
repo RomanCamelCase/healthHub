@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
 
 import java.util.Date;
 import java.util.Set;
@@ -15,20 +14,17 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
-    @Getter
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Getter
     @Column(name = "email", unique = true)
     @NotNull
     @Max(value = 100)
     @Email
     private String email;
 
-    @Getter
     @Column(name = "password")
     @NotNull
     private String password;
@@ -37,29 +33,24 @@ public class User {
     @NotNull
     private boolean isBanned;
 
-    @Getter
-    @Column(name = "sex")
+    @Column(name = "gender")
     @Enumerated(EnumType.ORDINAL)
     private Gender gender;
 
-    @Getter
     @Column(name = "first_name")
     @NotNull
     @Max(value = 30)
     private String firstName;
 
-    @Getter
     @Column(name = "last_name")
     @NotNull
     @Max(value = 30)
     private String lastName;
 
-    @Getter
     @Column(name = "birth_day")
     @Temporal(TemporalType.DATE)
     private Date birthDate;
 
-    @Getter
     @ElementCollection(fetch = FetchType.EAGER, targetClass = Role.class)
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
@@ -79,12 +70,24 @@ public class User {
         this.birthDate = birthDate;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {
@@ -99,20 +102,40 @@ public class User {
         isBanned = banned;
     }
 
+    public Gender getGender() {
+        return gender;
+    }
+
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public String getFirstName() {
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
     }
 
     public void setRoles(Set<Role> roles) {

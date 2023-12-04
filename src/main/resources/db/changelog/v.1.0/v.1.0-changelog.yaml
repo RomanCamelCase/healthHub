@@ -20,4 +20,16 @@ databaseChangeLog:
       author: ${author}
       changes:
         - sqlFile:
-            path: "db/changelog/v.1.0/2023-12-02-roles_table-add_foreign_key.sql"
+            path: "db/changelog/v.1.0/2023-12-03-roles_table-add_foreign_key.sql"
+  - changeSet:
+      id: 4
+      author: ${author}
+      changes:
+        - sqlFile:
+            path: "db/changelog/v.1.0/2023-12-03-customers_table.sql"
+  - changeSet:
+      id: 5
+      author: ${author}
+      changes:
+        - sqlFile:
+            path: "db/changelog/v.1.0/2023-12-03-users_table-edit_sex_type.sql"
