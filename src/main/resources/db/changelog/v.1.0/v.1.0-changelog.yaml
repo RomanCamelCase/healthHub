@@ -33,3 +33,21 @@ databaseChangeLog:
       changes:
         - sqlFile:
             path: "db/changelog/v.1.0/2023-12-03-users_table-edit_sex_type.sql"
+  - changeSet:
+      id: 6
+      author: ${author}
+      changes:
+        - sqlFile:
+            path: "db/changelog/v.1.0/2023-12-03-doctors_table.sql"
+  - changeSet:
+      id: 7
+      author: ${author}
+      changes:
+        - sqlFile:
+            path: "db/changelog/v.1.0/2023-12-03-specializations_table.sql"
+  - changeSet:
+      id: 8
+      author: ${author}
+      changes:
+        - sqlFile:
+            path: "db/changelog/v.1.0/2023-12-03-doctor_specializations_table.sql"
