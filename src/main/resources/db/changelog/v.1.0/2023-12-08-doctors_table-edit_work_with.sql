@@ -1,0 +1,1 @@
+ALTER TABLE doctors ALTER COLUMN work_with TYPE smallint;

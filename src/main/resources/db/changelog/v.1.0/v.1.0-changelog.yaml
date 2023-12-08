@@ -51,3 +51,9 @@ databaseChangeLog:
       changes:
         - sqlFile:
             path: "db/changelog/v.1.0/2023-12-03-doctor_specializations_table.sql"
+  - changeSet:
+      id: 9
+      author: ${author}
+      changes:
+        - sqlFile:
+            path: "db/changelog/v.1.0/2023-12-08-doctors_table-edit_work_with.sql"

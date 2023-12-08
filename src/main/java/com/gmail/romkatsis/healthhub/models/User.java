@@ -3,16 +3,14 @@ package com.gmail.romkatsis.healthhub.models;
 import com.gmail.romkatsis.healthhub.utils.enums.Gender;
 import com.gmail.romkatsis.healthhub.utils.enums.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
-import java.util.Date;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Entity(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User {
+abstract class User {
 
     @Column(name = "id")
     @Id
@@ -21,7 +19,7 @@ public class User {
 
     @Column(name = "email", unique = true)
     @NotNull
-    @Max(value = 100)
+    @Size(max = 100)
     @Email
     private String email;
 
@@ -34,22 +32,33 @@ public class User {
     private boolean isBanned;
 
     @Column(name = "gender")
+    @NotNull
     @Enumerated(EnumType.ORDINAL)
     private Gender gender;
 
     @Column(name = "first_name")
     @NotNull
-    @Max(value = 30)
+    @Size(max = 30)
     private String firstName;
 
     @Column(name = "last_name")
     @NotNull
-    @Max(value = 30)
+    @Size(max = 30)
     private String lastName;
 
     @Column(name = "birth_day")
+    @NotNull
     @Temporal(TemporalType.DATE)
     private Date birthDate;
+
+    @Column(name = "registration_date")
+    @NotNull
+    @Temporal(TemporalType.DATE)
+    private Date registrationDate;
+
+    @Column(name = "last_time_online")
+    @NotNull
+    private LocalDateTime lastTimeOnline;
 
     @ElementCollection(fetch = FetchType.EAGER, targetClass = Role.class)
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
@@ -57,10 +66,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+
     public User() {
     }
 
-    public User(String email, String password, boolean isBanned, Gender gender, String firstName, String lastName, Date birthDate) {
+    public User(String email, String password, boolean isBanned, Gender gender, String firstName, String lastName, Date birthDate, Date registrationDate, LocalDateTime lastTimeOnline) {
         this.email = email;
         this.password = password;
         this.isBanned = isBanned;
@@ -68,6 +78,8 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
+        this.registrationDate = registrationDate;
+        this.lastTimeOnline = lastTimeOnline;
     }
 
     public int getId() {
@@ -134,11 +146,35 @@ public class User {
         this.birthDate = birthDate;
     }
 
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public LocalDateTime getLastTimeOnline() {
+        return lastTimeOnline;
+    }
+
+    public void setLastTimeOnline(LocalDateTime lastTimeOnline) {
+        this.lastTimeOnline = lastTimeOnline;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public void addRole(Role role) {
+        if (this.roles.isEmpty()) {
+            this.roles = new HashSet<>(Collections.singleton(role));
+            return;
+        }
+        this.roles.add(role);
     }
 }
